@@ -17,6 +17,7 @@ export default function reserve(state = [], action) {
           });
         }
       });
+
     case 'REMOVE_RESERVE':
       return produce(state, draft => {
         const tripIndex = draft.findIndex(trip => trip.id === action.id);
@@ -25,6 +26,22 @@ export default function reserve(state = [], action) {
           draft.splice(tripIndex, 1);
         }
       });
+    
+    case 'UPDATE_RESERVE': {
+      if(action.amount <= 0) {
+        return state;
+      }
+
+      return produce(state, draft => {
+        const tripIndex = draft.findIndex(trip => trip.id === action.id);
+
+        if(tripIndex >= 0){
+          draft[tripIndex].amount = Number(action.amount);
+        }
+        
+      });
+    }
+    
     default:
       return state;
   }    
