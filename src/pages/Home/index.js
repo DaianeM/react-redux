@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addReserve } from '../../store/modules/reserve/actions';
+import { addReserveRequest } from '../../store/modules/reserve/actions';
 import { MdFlightTakeoff } from 'react-icons/md';
 
 import api from '../../services/api';
@@ -22,8 +22,8 @@ export default function Home() {
     loadApi();
   }, [])
 
-  const handleAdd = (trip) => {
-    dispatch(addReserve(trip));
+  const handleAdd = (id) => {
+    dispatch(addReserveRequest(id));
   }
 
   return(
@@ -36,7 +36,7 @@ export default function Home() {
             <span>Status: {trip.status ? 'Disponível' : 'Indisponível'}</span>
             <button 
             type="button"
-            onClick={()=> handleAdd(trip)}
+            onClick={()=> handleAdd(trip.id)}
             >
               <div>
                 <MdFlightTakeoff size={16} color="#FFF"/>
